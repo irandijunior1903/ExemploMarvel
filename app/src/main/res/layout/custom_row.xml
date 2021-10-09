@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     card_view:cardUseCompatPadding="true"
     >
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,11 +24,12 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/coverImage"
             android:layout_marginLeft="16dp"
-            android:paddingTop="20dp"
+            android:layout_toRightOf="@+id/coverImage"
             android:lines="2"
-            android:text="title" />
+            android:paddingTop="20dp"
+            android:text="título" />
+
         <TextView
             android:id="@+id/description"
             style="@style/TextAppearance.AppCompat.Medium"
@@ -40,7 +40,7 @@
             android:layout_toEndOf="@+id/title"
             android:lines="2"
             android:paddingTop="20dp"
-            android:text="description" />
+            android:text="descrição" />
 
     </RelativeLayout>
 

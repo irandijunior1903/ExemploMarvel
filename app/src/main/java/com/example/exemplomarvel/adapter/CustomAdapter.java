@@ -14,33 +14,33 @@ import com.example.exemplomarvel.models.Comic;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
-    private List<Comic> dataList;
     private Context context;
+    private List<Comic> dataList;
 
-    public CustomAdapter(Context context,List<Comic> dataList){
-        this.context = context;
+    public CustomAdapter(Context context, List<Comic> dataList){
         this.dataList = dataList;
+        this.context = context;
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
 
-        TextView txtTitle;
-        TextView txtDescription;
-        private ImageView coverImage;
+        public TextView txtTitle;
+        public TextView txtDescription;
+        public ImageView coverImage;
 
-        CustomViewHolder(View itemView) {
+        public CustomViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-
-            txtTitle = mView.findViewById(R.id.title);
-            txtDescription = mView.findViewById(R.id.description);
-            coverImage = mView.findViewById(R.id.coverImage);
+            txtTitle = itemView.findViewById(R.id.title);
+            txtDescription = itemView.findViewById(R.id.description);
+            coverImage = itemView.findViewById(R.id.coverImage);
 
         }
     }
@@ -70,4 +70,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public int getItemCount() {
         return dataList.size();
     }
+
 }

@@ -1,19 +1,25 @@
 package com.example.exemplomarvel.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class ComicDataContainer {
     @SerializedName("offset")
+    @Expose
     private int offset;
     @SerializedName("limit")
+    @Expose
     private int limit;
     @SerializedName("total")
+    @Expose
     private int total;
     @SerializedName("count")
+    @Expose
     private int count;
     @SerializedName("results")
+    @Expose
     private List<Comic> results;
 
     public ComicDataContainer(int offset, int limit, int total, int count, List<Comic> results) {

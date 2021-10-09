@@ -1,13 +1,17 @@
 package com.example.exemplomarvel.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Comic {
     @SerializedName("title")
+    @Expose
     public String title;
     @SerializedName("description")
+    @Expose
     public String description;
     @SerializedName("thumbnail")
+    @Expose
     public String thumbnail;
 
     public Comic(String title, String description, String thumbnail) {
