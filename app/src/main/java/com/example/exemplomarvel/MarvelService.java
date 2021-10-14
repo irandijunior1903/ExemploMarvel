@@ -1,14 +1,23 @@
 package com.example.exemplomarvel;
 
 
+import com.example.exemplomarvel.models.Comic;
 import com.example.exemplomarvel.models.ComicDataContainer;
+import com.example.exemplomarvel.models.ComicDataWrapper;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface MarvelService {
+    @GET("comics")
+    Call<ComicDataWrapper> getAllComics(
+            @Query(value = "ts") String ts,
+            @Query(value = "apikey") String apikey,
+            @Query(value = "hash") String hash,
+            @Query(value = "limit") String limit
+    );
 
-    @GET("comics?ts=1&apikey=f037ab6e62e83f9bbd49c158cbb0b541&hash=4dd1d9efdd156d320064a627542547c9")
-    Call<ComicDataContainer> getAllComics(@Query("results")int size);
 }

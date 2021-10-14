@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exemplomarvel.R;
 import com.example.exemplomarvel.models.Comic;
+import com.example.exemplomarvel.models.Image;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -19,28 +20,23 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
-    private Context context;
     private List<Comic> dataList;
+    private Context context;
 
     public CustomAdapter(Context context, List<Comic> dataList){
-        this.dataList = dataList;
         this.context = context;
+        this.dataList = dataList;
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-
         public TextView txtTitle;
-        public TextView txtDescription;
-        public ImageView coverImage;
 
         public CustomViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             txtTitle = itemView.findViewById(R.id.title);
-            txtDescription = itemView.findViewById(R.id.description);
-            coverImage = itemView.findViewById(R.id.coverImage);
 
         }
     }
@@ -55,14 +51,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         holder.txtTitle.setText(dataList.get(position).getTitle());
-        holder.txtDescription.setText(dataList.get(position).getDescription());
 
         Picasso.Builder builder = new Picasso.Builder(context);
         builder.downloader(new OkHttp3Downloader(context));
-        builder.build().load(dataList.get(position).getThumbnail())
-                .placeholder((R.drawable.ic_launcher_background))
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.coverImage);
 
     }
 
@@ -70,5 +61,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public int getItemCount() {
         return dataList.size();
     }
+
 
 }
