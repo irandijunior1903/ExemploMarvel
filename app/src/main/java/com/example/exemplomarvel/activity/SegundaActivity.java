@@ -1,8 +1,10 @@
-package com.example.exemplomarvel;
+package com.example.exemplomarvel.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.exemplomarvel.R;
 
 public class SegundaActivity extends AppCompatActivity {
 
