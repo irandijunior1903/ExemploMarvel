@@ -8,20 +8,13 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.exemplomarvel.ListaComicsContrato;
-import com.example.exemplomarvel.ListaComicsPresenter;
+import com.example.exemplomarvel.presenter.ListaComicsContrato;
+import com.example.exemplomarvel.presenter.ListaComicsPresenter;
 import com.example.exemplomarvel.R;
 import com.example.exemplomarvel.models.Comic;
-import com.example.exemplomarvel.network.RetrofitClientInstance;
 import com.example.exemplomarvel.adapter.CustomAdapter;
 
-import com.example.exemplomarvel.models.ComicDataWrapper;
-
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements ListaComicsContrato.ListaComicsView {
 
