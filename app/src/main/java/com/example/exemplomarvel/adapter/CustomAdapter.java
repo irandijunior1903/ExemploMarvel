@@ -1,6 +1,5 @@
 package com.example.exemplomarvel.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,36 +10,64 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exemplomarvel.R;
 import com.example.exemplomarvel.models.Comic;
-import com.example.exemplomarvel.models.ComicPrice;
-import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
     private List<Comic> comics;
+    private ItemComicClickListener itemComicClickListener;
 
-    public CustomAdapter(){
+    public CustomAdapter(ItemComicClickListener itemComicClickListener){
+        this.itemComicClickListener = itemComicClickListener;
         comics = new ArrayList<>();
+
     }
+
     class CustomViewHolder extends RecyclerView.ViewHolder {
         private TextView textTitle;
         private TextView textDescription;
         private TextView textPrice;
+        private TextView textRarity;
         private ImageView image;
+        private Comic comic;
 
         public CustomViewHolder(View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
             textDescription = itemView.findViewById(R.id.textDescription);
             textPrice = itemView.findViewById(R.id.textPrice);
-            image = itemView.findViewById(R.id.image);
+            textRarity = itemView.findViewById(R.id.textRarity);
+            image = itemView.findViewById(R.id.image_comic);
 
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(itemComicClickListener != null){
+                        itemComicClickListener.OnItemClick(comic);
+                    }
+                }
+            });
 
         }
+        public void bind(Comic comic){
+            this.comic = comic;
+            textTitle.setText(comic.getTitle());
+            textDescription.setText(comic.getDescription());
+            textPrice.setText("Preco: U$ " + String.valueOf(comic.getPrices().get(0).getPrice()));
+            if(comic.isRaro()== true){
+                textRarity.setText("Comic Raro");
+            }
+            Picasso.get().load(comic.getThumbnail().getPath() + "." + comic.getThumbnail().getExtension())
+                    .placeholder((R.drawable.ic_launcher_background))
+                    .error(R.drawable.ic_launcher_background)
+                    .into(image);
+        }
+
     }
 
     @Override
@@ -50,15 +77,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         return new CustomViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        holder.textTitle.setText(comics.get(position).getTitle());
-        holder.textDescription.setText(comics.get(position).getDescription());
-        holder.textPrice.setText("U$: " + String.valueOf(comics.get(position).getPrices().get(0).getPrice()));
-        Picasso.get().load(comics.get(position).getThumbnail().getPath() + "." + comics.get(position).getThumbnail().getExtension())
-                .placeholder((R.drawable.ic_launcher_background))
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.image);
+        holder.bind(comics.get(position));
 
     }
 
@@ -72,6 +94,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         this.comics = comics;
         notifyDataSetChanged();
     }
+
+
+    public interface ItemComicClickListener {
+        void OnItemClick(Comic comic);
+    }
+
 
 
 
