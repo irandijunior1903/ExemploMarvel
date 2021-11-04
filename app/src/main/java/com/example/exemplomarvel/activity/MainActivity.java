@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -16,10 +17,10 @@ import com.example.exemplomarvel.adapter.CustomAdapter;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ListaComicsContrato.ListaComicsView {
+public class MainActivity extends AppCompatActivity implements ListaComicsContrato.ListaComicsView,
+            CustomAdapter.ItemComicClickListener{
 
     private CustomAdapter adapter;
-    private RecyclerView recyclerView;
     private ListaComicsContrato.ListaComicsPresenter presenter;
     ProgressDialog progressDoalog;
 
@@ -40,13 +41,14 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
 
     }
 
-    private void configuraAdapter(){
-        recyclerView = findViewById(R.id.recyclerfilmes);
-        adapter = new CustomAdapter();
+    public void configuraAdapter(){
+        RecyclerView recyclerView = findViewById(R.id.recyclercomics);
+        adapter = new CustomAdapter(this);
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-    }
+
+        }
 
     @Override
     public void exibirComics(List<Comic> comics) {
@@ -62,5 +64,12 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
     protected void onDestroy(){
         super.onDestroy();
         presenter.destruirView();
+    }
+
+    @Override
+    public void OnItemClick(Comic comic) {
+        Intent intent = new Intent(this, SegundaActivity.class);
+        intent.putExtra("Comic", comic);
+        startActivity(intent);
     }
 }

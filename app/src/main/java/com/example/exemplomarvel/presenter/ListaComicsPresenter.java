@@ -4,7 +4,7 @@ import com.example.exemplomarvel.models.Comic;
 import com.example.exemplomarvel.models.ComicDataWrapper;
 import com.example.exemplomarvel.network.RetrofitClientInstance;
 
-
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,8 +27,13 @@ public class ListaComicsPresenter implements ListaComicsContrato.ListaComicsPres
                     @Override
                     public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
                         if(response.isSuccessful()){
-                            final List<Comic> comicList = response.body().getData().getResults();
-                            view.exibirComics(comicList);
+                            List<Comic> comicList = response.body().getData().getResults();
+                            List<Comic> novaLista = alteraRaridade(comicList);
+                            Collections.shuffle(novaLista);
+                            view.exibirComics(novaLista);
+
+
+
                         }
                     }
 
@@ -43,4 +48,17 @@ public class ListaComicsPresenter implements ListaComicsContrato.ListaComicsPres
     public void destruirView() {
         this.view = null;
     }
+
+    public List<Comic> alteraRaridade(List<Comic> comics){
+        Collections.shuffle(comics);
+        for(int i=0; i<=comics.size()-1; i++){
+            if(comics.get(i).isRaro()==false && i <=1){
+                comics.get(i).setRaro(true);
+                break;
+            }
+        }
+        return comics;
+    }
+
+
 }
