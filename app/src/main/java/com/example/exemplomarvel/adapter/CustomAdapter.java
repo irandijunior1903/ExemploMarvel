@@ -13,7 +13,6 @@ import com.example.exemplomarvel.models.Comic;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
@@ -43,12 +42,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             textRarity = itemView.findViewById(R.id.textRarity);
             image = itemView.findViewById(R.id.image_comic);
 
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(itemComicClickListener != null){
                         itemComicClickListener.OnItemClick(comic);
+
                     }
                 }
             });
@@ -58,10 +57,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.comic = comic;
             textTitle.setText(comic.getTitle());
             textDescription.setText(comic.getDescription());
-            textPrice.setText("Preco: U$ " + String.valueOf(comic.getPrices().get(0).getPrice()));
             if(comic.isRaro()== true){
                 textRarity.setText("Comic Raro");
             }
+            textPrice.setText("Preço: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).getPrice())));
             Picasso.get().load(comic.getThumbnail().getPath() + "." + comic.getThumbnail().getExtension())
                     .placeholder((R.drawable.ic_launcher_background))
                     .error(R.drawable.ic_launcher_background)

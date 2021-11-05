@@ -1,4 +1,4 @@
-package com.example.exemplomarvel.presenter;
+package com.example.exemplomarvel.repository;
 
 import com.example.exemplomarvel.models.Comic;
 import com.example.exemplomarvel.models.ComicDataWrapper;
@@ -11,11 +11,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListaComicsPresenter implements ListaComicsContrato.ListaComicsPresenter{
+public class ListaComicsRepository implements ListaComicsContrato.ListaComicsPresenter{
 
     private ListaComicsContrato.ListaComicsView view;
 
-    public ListaComicsPresenter(ListaComicsContrato.ListaComicsView view){
+    public ListaComicsRepository(ListaComicsContrato.ListaComicsView view){
         this.view = view;
     }
 

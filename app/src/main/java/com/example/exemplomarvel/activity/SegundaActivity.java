@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 import com.example.exemplomarvel.R;
 import com.example.exemplomarvel.models.Comic;
 import com.squareup.picasso.Picasso;
-
-import java.util.Arrays;
 
 public class SegundaActivity extends AppCompatActivity{
 
@@ -43,7 +40,7 @@ public class SegundaActivity extends AppCompatActivity{
         textDescription.setText(comic.getDescription());
 
         TextView textPrice = findViewById(R.id.text_price_comic);
-        textPrice.setText("Preço: U$ "+ String.valueOf(comic.getPrices().get(0).getPrice()));
+        textPrice.setText("Preço: U$ "+ String.valueOf(String.format("%.2f", comic.getPrices().get(0).getPrice())));
 
         TextView textDescriptionComprar = findViewById(R.id.text_comics_value);
         textDescriptionComprar.setText("Escolha a quantidade que deseja comprar do quadrinho: "+ comic.getTitle());
@@ -52,12 +49,15 @@ public class SegundaActivity extends AppCompatActivity{
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(10);
 
+
         buttonComprar = findViewById(R.id.buttonComprar);
         buttonComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float quantidade = (float) comic.getPrices().get(0).getPrice() * numberPicker.getValue();
+                textPrice.setText("Preço: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(quantidade))));
                 Intent intent = new Intent(SegundaActivity.this, TerceiraActivity.class);
-                intent.putExtra("Quantity", numberPicker.getValue());
+                intent.putExtra("comicComprar", comic);
                 startActivity(intent);
             }
         });
