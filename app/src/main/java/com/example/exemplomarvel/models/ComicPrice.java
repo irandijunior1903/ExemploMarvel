@@ -1,6 +1,5 @@
 package com.example.exemplomarvel.models;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -20,8 +19,9 @@ public class ComicPrice implements Parcelable {
         return price;
     }
 
-    public void setPrice(float price) {
+    public float setPrice(float price) {
         this.price = price;
+        return price;
     }
 
     @Override

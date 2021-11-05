@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.exemplomarvel.presenter.ListaComicsContrato;
-import com.example.exemplomarvel.presenter.ListaComicsPresenter;
+import com.example.exemplomarvel.repository.ListaComicsContrato;
+import com.example.exemplomarvel.repository.ListaComicsRepository;
 import com.example.exemplomarvel.R;
 import com.example.exemplomarvel.models.Comic;
 import com.example.exemplomarvel.adapter.CustomAdapter;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
 
         configuraAdapter();
 
-        presenter = new ListaComicsPresenter(this);
+        presenter = new ListaComicsRepository(this);
         presenter.recuperaComics();
 
         progressDoalog = new ProgressDialog(MainActivity.this);
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
     public void exibirComics(List<Comic> comics) {
         adapter.setComics(comics);
         progressDoalog.dismiss();
+
     }
 
     @Override
