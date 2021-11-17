@@ -37,12 +37,12 @@ public class TerceiraActivity extends AppCompatActivity {
                 float valorComicComum = (float) (comic.getPrices().get(0).getPrice() * 0.90);
                 float valorComicRaro = (float) (comic.getPrices().get(0).getPrice() * 0.75);
                 if(!cupom.isEmpty() && cupom.contains("Cupom10") && comic.isRaro() == false){
-                    textValorTotal.setText("Preço: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(valorComicComum))));
+                    textValorTotal.setText("Preço Total: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(valorComicComum))));
                     Intent intent = new Intent(TerceiraActivity.this, MainActivity.class);
                     Toast.makeText(TerceiraActivity.this, "Compra feita com sucesso! Voltando a tela inicial...", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 } else if(!cupom.isEmpty() && cupom.contains("Cupom25") && comic.isRaro() == true){
-                    textValorTotal.setText("Preço: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(valorComicRaro))));
+                    textValorTotal.setText("Preço Total: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(valorComicRaro))));
                     Intent intent = new Intent(TerceiraActivity.this, MainActivity.class);
                     Toast.makeText(TerceiraActivity.this, "Compra feita com sucesso! Voltando a tela inicial...", Toast.LENGTH_LONG).show();
                     startActivity(intent);

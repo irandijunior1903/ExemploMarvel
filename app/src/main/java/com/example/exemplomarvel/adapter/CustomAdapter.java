@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exemplomarvel.R;
@@ -15,10 +16,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
-    private List<Comic> comics;
     private ItemComicClickListener itemComicClickListener;
+    private List<Comic> comics;
 
     public CustomAdapter(ItemComicClickListener itemComicClickListener){
         this.itemComicClickListener = itemComicClickListener;
@@ -45,14 +51,36 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(itemComicClickListener != null){
-                        itemComicClickListener.OnItemClick(comic);
+                    Observable<Comic> observable = Observable.just(comic);
+                    Observer<Comic> observer = new Observer<Comic>(){
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
 
-                    }
+                        }
+
+                        @Override
+                        public void onNext(@NonNull Comic comic) {
+                            itemComicClickListener.onClickListener(comic);
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    };
+                    observable.subscribe(observer);
                 }
             });
 
         }
+
+
+
         public void bind(Comic comic){
             this.comic = comic;
             textTitle.setText(comic.getTitle());
@@ -94,12 +122,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         notifyDataSetChanged();
     }
 
-
-    public interface ItemComicClickListener {
-        void OnItemClick(Comic comic);
+    public interface ItemComicClickListener{
+        void onClickListener(Comic comic);
     }
-
-
-
 
 }

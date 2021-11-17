@@ -10,7 +10,7 @@ public interface ListaComicsContrato {
         void exibirErro();
 
     }
-    interface ListaComicsPresenter{
+    interface ListaComicsRepository{
         void recuperaComics();
         void destruirView();
     }
