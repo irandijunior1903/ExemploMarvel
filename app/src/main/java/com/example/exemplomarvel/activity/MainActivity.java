@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+
 import com.example.exemplomarvel.repository.ListaComicsContrato;
 import com.example.exemplomarvel.repository.ListaComicsRepository;
 import com.example.exemplomarvel.R;
@@ -21,8 +22,10 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
             CustomAdapter.ItemComicClickListener{
 
     private CustomAdapter adapter;
-    private ListaComicsContrato.ListaComicsPresenter presenter;
+    private ListaComicsContrato.ListaComicsRepository repository;
     ProgressDialog progressDoalog;
+    CustomAdapter.ItemComicClickListener itemComicClickListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
 
         configuraAdapter();
 
-        presenter = new ListaComicsRepository(this);
-        presenter.recuperaComics();
+        repository = new ListaComicsRepository(this);
+        repository.recuperaComics();
 
         progressDoalog = new ProgressDialog(MainActivity.this);
         progressDoalog.setMessage("Loading....");
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        }
+    }
 
     @Override
     public void exibirComics(List<Comic> comics) {
@@ -64,12 +67,13 @@ public class MainActivity extends AppCompatActivity implements ListaComicsContra
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        presenter.destruirView();
+        repository.destruirView();
+
     }
 
     @Override
-    public void OnItemClick(Comic comic) {
-        Intent intent = new Intent(this, SegundaActivity.class);
+    public void onClickListener(Comic comic) {
+        Intent intent = new Intent(MainActivity.this, SegundaActivity.class);
         intent.putExtra("Comic", comic);
         startActivity(intent);
     }

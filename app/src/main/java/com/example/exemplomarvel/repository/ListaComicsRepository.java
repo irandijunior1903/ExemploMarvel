@@ -1,27 +1,32 @@
 package com.example.exemplomarvel.repository;
 
+import com.example.exemplomarvel.component.DaggerMarvelComponent;
+import com.example.exemplomarvel.component.MarvelComponent;
 import com.example.exemplomarvel.models.Comic;
 import com.example.exemplomarvel.models.ComicDataWrapper;
-import com.example.exemplomarvel.network.RetrofitClientInstance;
+import com.example.exemplomarvel.network.MarvelService;
 
 import java.util.Collections;
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListaComicsRepository implements ListaComicsContrato.ListaComicsPresenter{
+public class ListaComicsRepository implements ListaComicsContrato.ListaComicsRepository{
 
     private ListaComicsContrato.ListaComicsView view;
-
+    MarvelService marvelService;
     public ListaComicsRepository(ListaComicsContrato.ListaComicsView view){
         this.view = view;
     }
 
     @Override
     public void recuperaComics() {
-        RetrofitClientInstance.getInstance()
+        MarvelComponent marvelComponent = DaggerMarvelComponent.builder().build();
+        marvelService = marvelComponent.getMarvelService();
+        marvelService
                 .getAllComics("1", "f037ab6e62e83f9bbd49c158cbb0b541", "4dd1d9efdd156d320064a627542547c9")
                 .enqueue(new Callback<ComicDataWrapper>() {
                     @Override
@@ -31,8 +36,6 @@ public class ListaComicsRepository implements ListaComicsContrato.ListaComicsPre
                             List<Comic> novaLista = alteraRaridade(comicList);
                             Collections.shuffle(novaLista);
                             view.exibirComics(novaLista);
-
-
 
                         }
                     }

@@ -18,6 +18,7 @@ public class SegundaActivity extends AppCompatActivity{
 
     private NumberPicker numberPicker;
     private Button buttonComprar;
+    int contador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,16 @@ public class SegundaActivity extends AppCompatActivity{
         buttonComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float quantidade = (float) comic.getPrices().get(0).getPrice() * numberPicker.getValue();
-                textPrice.setText("Preço: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(quantidade))));
+                if(contador < 1){
+                    float quantidade = (float) comic.getPrices().get(0).getPrice() * numberPicker.getValue();
+                    textPrice.setText("Preço: U$ " + String.valueOf(String.format("%.2f", comic.getPrices().get(0).setPrice(quantidade))));
+                    contador ++;
+
+                }
                 Intent intent = new Intent(SegundaActivity.this, TerceiraActivity.class);
                 intent.putExtra("comicComprar", comic);
                 startActivity(intent);
+
             }
         });
 
