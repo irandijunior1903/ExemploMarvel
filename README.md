@@ -12,4 +12,6 @@ Nossa parceira, a Marvel Comics, está precisando colocar na produção um app d
 - Uma classe Service que contém a instância do Retrofit, usando o endpoint da API Marvel;
 - Uma interface Service que faz o Get no endpoint, passando parâmetros específicos;
 - Um Adapter para exibir os objetos num layout RecyclerView;
-- Para exibir os Comics raros, tem um método trata isso de forma aleatória na classe Presenter.
+- Para exibir os Comics raros, tem um método trata isso de forma aleatória na classe Presenter;
+- Uso do Dagger para criação de módulos, como o que contêm a instância do Retrofit e instâncias associadas;
+- Uso do RxJava para fazer uma chamada assíncrona na API Marvel, a qual obtém-se a lista de Comics.
