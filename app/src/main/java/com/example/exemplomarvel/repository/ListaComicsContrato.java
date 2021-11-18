@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ListaComicsContrato {
     interface ListaComicsView{
-        void exibirComics(List<Comic> comics);
-        void exibirErro();
+        void showData(List<Comic> comics);
+        void showError();
 
     }
     interface ListaComicsRepository{
-        void recuperaComics();
-        void destruirView();
+        void loadData();
+        void viewDestroy();
     }
 }

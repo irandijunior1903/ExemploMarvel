@@ -2,7 +2,7 @@ package com.example.exemplomarvel.module;
 
 import android.content.Context;
 
-import javax.inject.Named;
+import com.example.exemplomarvel.scope.MarvelApplicationScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,10 +15,11 @@ public class ContextModule {
         this.context = context;
     }
 
-    @Named("application_context")
     @Provides
+    @MarvelApplicationScope
+    @MarvelApplicationContext
     public Context context(){
-        return context.getApplicationContext();
+        return context;
     }
 
 
