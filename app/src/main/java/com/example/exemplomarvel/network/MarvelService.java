@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 
 public interface MarvelService {
     @GET("comics")
-    Call<ComicDataWrapper> getAllComics(
+    Observable<ComicDataWrapper> getAllComics(
             @Query("ts") String ts,
             @Query("apikey") String apikey,
             @Query("hash") String hash

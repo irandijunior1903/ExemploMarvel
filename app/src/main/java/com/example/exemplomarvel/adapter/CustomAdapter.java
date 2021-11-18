@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -26,6 +28,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private ItemComicClickListener itemComicClickListener;
     private List<Comic> comics;
 
+    @Inject
     public CustomAdapter(ItemComicClickListener itemComicClickListener){
         this.itemComicClickListener = itemComicClickListener;
         comics = new ArrayList<>();
@@ -78,8 +81,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             });
 
         }
-
-
 
         public void bind(Comic comic){
             this.comic = comic;
